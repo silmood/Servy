@@ -3,8 +3,6 @@ package com.servy.servy.view
 import android.content.Context
 import android.content.res.TypedArray
 import android.support.v7.widget.AppCompatEditText
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.inputmethod.InputMethodManager
 import com.servy.servy.R

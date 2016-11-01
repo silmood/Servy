@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Servy</string>
     <string name="hint_codigo_confirmacion">Ingresa tu código de confirmación</string>
+    <string name="label_aceptar">Aceptar</string>
 </resources>
