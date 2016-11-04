@@ -29,6 +29,6 @@ class ServyCodeActivity : AppCompatActivity() {
     }
 
     private fun enviarCodigo() {
-        startActivityWithSimpleIntent(DishesActivity::class)
+        startActivityWithSimpleIntent(MenuActivity::class)
     }
 }

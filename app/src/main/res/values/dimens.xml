@@ -4,4 +4,5 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="default_hint_size">14sp</dimen>
+    <dimen name="height_foto_platillo">182dp</dimen>
 </resources>
