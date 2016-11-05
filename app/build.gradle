@@ -36,6 +36,7 @@ dependencies {
     compile 'com.android.support:cardview-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
     compile 'com.github.andyxialm:SmoothCheckBox:4d4825562b'
+    compile 'com.readystatesoftware.sqliteasset:sqliteassethelper:+'
 }
 repositories {
     mavenCentral()

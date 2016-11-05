@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.activity_menu.*
 class MenuActivity : AppCompatActivity() {
 
     val menuAdapter : MenuAdapter by lazy {
-        MenuAdapter(this, MenuRepo.getMenu(this))
+        MenuAdapter(this, MenuRepo.getMenu())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
