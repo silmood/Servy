@@ -9,6 +9,8 @@ import kotlinx.android.synthetic.main.item_platillo.view.*
 
 class MenuAdapter(val context: Context, val platillos: List<Platillo>) : RecyclerView.Adapter<MenuAdapter.PlatilloHolder>() {
 
+    var orden: MutableList<Platillo> = mutableListOf<Platillo>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlatilloHolder {
         val vistaItem = parent.inflate(R.layout.item_platillo)
         return PlatilloHolder(vistaItem)
@@ -16,7 +18,28 @@ class MenuAdapter(val context: Context, val platillos: List<Platillo>) : Recycle
 
     override fun onBindViewHolder(holder: PlatilloHolder?, position: Int) {
         val platillo = platillos[position]
-        holder?.popularItem(platillo)
+
+        holder?.setSelectionListener { platilloSeleccionado ->
+            val  estaEnOrden : Boolean = estaEnOrden(platilloSeleccionado)
+
+            if (estaEnOrden)
+                orden = orden.filter { platillo -> platillo.id != platilloSeleccionado.id }.toMutableList()
+            else
+                orden.add(platilloSeleccionado)
+        }
+
+        holder?.popularItem(platillo, estaEnOrden(platillo) )
+    }
+
+    fun estaEnOrden(platilloAComprobar: Platillo) : Boolean{
+        var  estaEnOrden : Boolean = false
+
+        orden.forEach {
+            platillo -> estaEnOrden = estaEnOrden || platillo.id == platilloAComprobar.id
+
+        }
+
+        return estaEnOrden
     }
 
     override fun getItemCount(): Int {
@@ -25,9 +48,21 @@ class MenuAdapter(val context: Context, val platillos: List<Platillo>) : Recycle
 
 
     class PlatilloHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun popularItem(platillo: Platillo?) {
-            itemView.labelNombre.text = platillo?.nombre
-            itemView.labelPrecio.text = platillo?.precio.toString()
+
+        var onPlatilloSelected: ((Platillo) -> Unit)? = null
+
+        fun popularItem(platillo: Platillo, estaEnOrden : Boolean) {
+            itemView.labelNombre.text = platillo.nombre
+            itemView.labelPrecio.text = platillo.precio.toString()
+            itemView.checkbox.isChecked = estaEnOrden
+            itemView.checkbox.setOnCheckedChangeListener { checkBox, checked ->
+                onPlatilloSelected?.invoke(platillo)
+            }
         }
+
+        fun setSelectionListener(onPlatilloSelected: (Platillo) -> Unit) {
+            this.onPlatilloSelected = onPlatilloSelected
+        }
+
     }
 }

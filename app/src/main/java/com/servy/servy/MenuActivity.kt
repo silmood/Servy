@@ -3,6 +3,8 @@ package com.servy.servy
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_menu.*
 
 class MenuActivity : AppCompatActivity() {
@@ -18,6 +20,20 @@ class MenuActivity : AppCompatActivity() {
         listaPlatillos.layoutManager = LinearLayoutManager(this)
         listaPlatillos.adapter = menuAdapter
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.activity_menu, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if (item?.itemId == R.id.item_accept){
+            val orden : List<Platillo> = menuAdapter.orden
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
 }

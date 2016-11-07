@@ -3,4 +3,5 @@
     <string name="hint_codigo_confirmacion">Ingresa tu código de confirmación</string>
     <string name="label_aceptar">Aceptar</string>
     <string name="label_precio">Precio: $</string>
+    <string name="label_accept">Aceptar</string>
 </resources>

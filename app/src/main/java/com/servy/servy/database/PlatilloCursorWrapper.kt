@@ -8,10 +8,11 @@ import com.servy.servy.database.PlatilloDbSchema.PlatilloTable
 class PlatilloCursorWrapper(cursor: Cursor) : CursorWrapper(cursor) {
 
     fun getPlatillo(): Platillo {
+        val id = getString(getColumnIndex(PlatilloTable.Column.ID))
         val nombre = getString(getColumnIndex(PlatilloTable.Column.NOMBRE))
         val precio = getFloat(getColumnIndex(PlatilloTable.Column.PRECIO))
         val imagen = getString(getColumnIndex(PlatilloTable.Column.IMG_URL))
 
-        return Platillo(nombre, precio, imagen)
+        return Platillo(id, nombre, precio, imagen)
     }
 }
