@@ -4,4 +4,9 @@
     <string name="label_aceptar">Aceptar</string>
     <string name="label_precio">Precio: $</string>
     <string name="label_accept">Aceptar</string>
+    <string name="title_activity_entrega_activty">Servy</string>
+    <string name="hint_habitacion">Número de habitación</string>
+    <string name="label_tiempo_espera">La orden será entregada a las</string>
+    <string name="label_total">Total</string>
+    <string name="label_ordenar">Ordenar</string>
 </resources>

@@ -1,13 +1,15 @@
 package com.servy.servy
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_menu.*
 
+
 class MenuActivity : AppCompatActivity() {
+
 
     val menuAdapter : MenuAdapter by lazy {
         MenuAdapter(this, MenuRepo.getMenu())
@@ -30,10 +32,20 @@ class MenuActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         if (item?.itemId == R.id.item_accept){
-            val orden : List<Platillo> = menuAdapter.orden
+            val total = sumaTotalDe(menuAdapter.orden)
+            val intent = EntregaActivty.buildIntent(total)
+
+            startActivity(intent)
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun sumaTotalDe(orden: List<Platillo>): Float {
+        var total : Float = 0f
+        orden.forEach { platillo -> total += platillo.precio }
+
+        return total
     }
 
 }
