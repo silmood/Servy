@@ -15,10 +15,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/imgPlatillo"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_foto_platillo"
-                android:scaleType="centerCrop"
-                android:src="@drawable/burger" />
+                android:scaleType="centerCrop" />
 
             <View
                 android:layout_width="match_parent"

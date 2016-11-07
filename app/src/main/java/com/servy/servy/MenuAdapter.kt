@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.servy.servy.common.inflate
 import kotlinx.android.synthetic.main.item_platillo.view.*
 
@@ -58,6 +59,11 @@ class MenuAdapter(val context: Context, val platillos: List<Platillo>) : Recycle
             itemView.checkbox.setOnCheckedChangeListener { checkBox, checked ->
                 onPlatilloSelected?.invoke(platillo)
             }
+
+            Glide.with(ServyApplication.getAppContext())
+                    .load(platillo.urlImagen)
+                    .placeholder(R.drawable.burger)
+                    .into(itemView.imgPlatillo)
         }
 
         fun setSelectionListener(onPlatilloSelected: (Platillo) -> Unit) {
