@@ -33,7 +33,7 @@ class MenuActivity : AppCompatActivity() {
 
         if (item?.itemId == R.id.item_accept){
             val total = sumaTotalDe(menuAdapter.orden)
-            val intent = EntregaActivty.buildIntent(total)
+            val intent = EntregaActivity.buildIntent(total)
 
             startActivity(intent)
         }

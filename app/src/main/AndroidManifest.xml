@@ -29,7 +29,7 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".EntregaActivty"
+            android:name=".EntregaActivity"
             android:label="@string/title_activity_entrega_activty" />
         <activity android:name=".view.CheckoutActivity"></activity>
     </application>
