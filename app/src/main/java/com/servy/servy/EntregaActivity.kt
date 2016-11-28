@@ -10,7 +10,9 @@ import android.location.Criteria
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.widget.TimePicker
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -50,6 +52,7 @@ class EntregaActivity : AppCompatActivity(), OnMapReadyCallback {
         labelTotal.text = String.format("$ %.2f", total)
         setLabelHoraEntrega(horaEntrega)
         buttonHoraEntrega.setOnClickListener { view -> mostrarDialogoFecha(calcularHoraDeEntregaMinima()) }
+        buttonOrdenar.setOnClickListener { view -> mostrarDialogoConfirmacion(horaEntrega) }
 
         initMap()
     }
@@ -114,6 +117,19 @@ class EntregaActivity : AppCompatActivity(), OnMapReadyCallback {
 
         timePickerDialog.show()
 
+    }
+
+    private fun mostrarDialogoConfirmacion(horaEntrega: Date){
+        val hora = SimpleDateFormat("HH:mm", Locale.getDefault()).format(horaEntrega)
+        val labelHora = String.format(getString(R.string.label_orden_mensaje), hora)
+
+        val dialog = AlertDialog.Builder(this)
+                .setTitle(R.string.label_orden_aceptada)
+                .setMessage(labelHora)
+                .setPositiveButton(R.string.label_aceptar, null)
+                .setOnDismissListener { finish() }
+
+        dialog.show()
     }
 
     private fun updateHoraEntrega(fechaInicial: Date, hora: Int, min: Int){

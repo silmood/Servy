@@ -3,6 +3,8 @@
     <string name="hint_codigo_confirmacion">Ingresa tu código de confirmación</string>
     <string name="label_aceptar">Aceptar</string>
     <string name="label_precio">Precio: $</string>
+    <string name="label_orden_aceptada">Tu orden va en camino!</string>
+    <string name="label_orden_mensaje">Tu orden será entregada a las %s . Si no llega en el horario establecido, tu orden es gratis!</string>
     <string name="label_accept">Aceptar</string>
     <string name="title_activity_entrega_activty">Servy</string>
     <string name="hint_habitacion">Número de habitación</string>
