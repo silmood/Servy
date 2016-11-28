@@ -2,6 +2,7 @@ package com.servy.servy
 
 import android.app.Application
 import android.content.Context
+import io.fabric.sdk.android.Fabric
 
 class ServyApplication() : Application() {
 

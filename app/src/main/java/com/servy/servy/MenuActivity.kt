@@ -41,9 +41,9 @@ class MenuActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun sumaTotalDe(orden: List<Platillo>): Float {
+    private fun sumaTotalDe(orden: List<ItemOrden>): Float {
         var total : Float = 0f
-        orden.forEach { platillo -> total += platillo.precio }
+        orden.forEach { item -> total += item.platillo.precio * item.cantidad }
 
         return total
     }

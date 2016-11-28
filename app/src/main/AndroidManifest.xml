@@ -28,10 +28,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="716765f7698bf0dc11983b65f5d678626cfee406" />
+
         <activity
             android:name=".EntregaActivity"
             android:label="@string/title_activity_entrega_activty" />
-        <activity android:name=".view.CheckoutActivity"></activity>
+
     </application>
 
 </manifest>

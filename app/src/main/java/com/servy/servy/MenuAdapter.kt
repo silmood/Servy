@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.item_platillo.view.*
 
 class MenuAdapter(val context: Context, val platillos: List<Platillo>) : RecyclerView.Adapter<MenuAdapter.PlatilloHolder>() {
 
-    var orden: MutableList<Platillo> = mutableListOf<Platillo>()
+    var orden: MutableList<ItemOrden> = mutableListOf<ItemOrden>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlatilloHolder {
         val vistaItem = parent.inflate(R.layout.item_platillo)
@@ -19,28 +19,40 @@ class MenuAdapter(val context: Context, val platillos: List<Platillo>) : Recycle
 
     override fun onBindViewHolder(holder: PlatilloHolder?, position: Int) {
         val platillo = platillos[position]
+        val cantidad = if (estaEnOrden(platillo)) obtenerCantidadDe(platillo) else 0
 
-        holder?.setSelectionListener { platilloSeleccionado ->
+        holder?.setSelectionListener { platilloSeleccionado, cantidad ->
             val  estaEnOrden : Boolean = estaEnOrden(platilloSeleccionado)
 
-            if (estaEnOrden)
-                orden = orden.filter { platillo -> platillo.id != platilloSeleccionado.id }.toMutableList()
+            if (estaEnOrden && cantidad == 0)
+                orden = orden.filter { item -> item.platillo.id != platilloSeleccionado.id }.toMutableList()
+            else if (estaEnOrden)
+                orden.forEach { item -> if (item.platillo.id == platilloSeleccionado.id) item.cantidad = cantidad }
             else
-                orden.add(platilloSeleccionado)
+                orden.add(ItemOrden(cantidad, platilloSeleccionado))
         }
 
-        holder?.popularItem(platillo, estaEnOrden(platillo) )
+        holder?.popularItem(platillo, cantidad)
     }
 
     fun estaEnOrden(platilloAComprobar: Platillo) : Boolean{
         var  estaEnOrden : Boolean = false
 
         orden.forEach {
-            platillo -> estaEnOrden = estaEnOrden || platillo.id == platilloAComprobar.id
+            item -> estaEnOrden = estaEnOrden || item.platillo.id == platilloAComprobar.id
 
         }
 
         return estaEnOrden
+    }
+
+    fun obtenerCantidadDe(platillo: Platillo) : Int {
+        orden.forEach { item ->
+            if (platillo.id == item.platillo.id)
+                return  item.cantidad
+        }
+
+        return 0
     }
 
     override fun getItemCount(): Int {
@@ -50,15 +62,16 @@ class MenuAdapter(val context: Context, val platillos: List<Platillo>) : Recycle
 
     class PlatilloHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        var onPlatilloSelected: ((Platillo) -> Unit)? = null
+        var onPlatilloSelected: ((Platillo, Int) -> Unit)? = null
 
-        fun popularItem(platillo: Platillo, estaEnOrden : Boolean) {
+        fun popularItem(platillo: Platillo, cantidad: Int) {
             itemView.labelNombre.text = platillo.nombre
             itemView.labelPrecio.text = platillo.precio.toString()
-            itemView.checkbox.isChecked = estaEnOrden
-            itemView.checkbox.setOnCheckedChangeListener { checkBox, checked ->
-                onPlatilloSelected?.invoke(platillo)
+            itemView.checkbox.number = cantidad.toString()
+            itemView.checkbox.setOnValueChangeListener { elegantNumberButton, oldValue, newValue ->
+                onPlatilloSelected?.invoke(platillo, newValue)
             }
+
 
             Glide.with(ServyApplication.getAppContext())
                     .load(platillo.urlImagen)
@@ -66,7 +79,7 @@ class MenuAdapter(val context: Context, val platillos: List<Platillo>) : Recycle
                     .into(itemView.imgPlatillo)
         }
 
-        fun setSelectionListener(onPlatilloSelected: (Platillo) -> Unit) {
+        fun setSelectionListener(onPlatilloSelected: (Platillo, Int) -> Unit) {
             this.onPlatilloSelected = onPlatilloSelected
         }
 

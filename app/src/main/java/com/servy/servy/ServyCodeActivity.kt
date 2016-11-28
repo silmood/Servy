@@ -4,7 +4,9 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import com.crashlytics.android.Crashlytics
 import com.servy.servy.common.startActivityWithSimpleIntent
+import io.fabric.sdk.android.Fabric
 import kotlinx.android.synthetic.main.activity_delivery_code.*
 
 const val LONGITUD_CODIGO_SERVY : Int = 4
@@ -13,6 +15,7 @@ class ServyCodeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Fabric.with(this, Crashlytics())
         setContentView(R.layout.activity_delivery_code)
 
         inputCodigo.addTextChangedListener(object : TextWatcher{
